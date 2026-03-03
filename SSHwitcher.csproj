@@ -9,4 +9,16 @@
 
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="sshwitcher.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="sshwitcher.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Svg" Version="3.4.7" />
+  </ItemGroup>
+
 </Project>

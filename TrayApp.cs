@@ -1,5 +1,8 @@
 namespace SSHwitcher;
 
+using System.Reflection;
+using System.Xml.Linq;
+
 public class TrayApplicationContext : ApplicationContext
 {
     private readonly NotifyIcon _trayIcon;
@@ -202,26 +205,9 @@ public class TrayApplicationContext : ApplicationContext
 
     private static Icon CreateTrayIcon()
     {
-        var bmp = new Bitmap(32, 32);
-        using var g = Graphics.FromImage(bmp);
-        g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-        g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
-        g.Clear(Color.Transparent);
-
-        using var bgBrush = new SolidBrush(Color.FromArgb(10, 120, 212));
-        g.FillEllipse(bgBrush, 1, 1, 60, 60);
-
-        using var font = new Font("Segoe UI", 13, FontStyle.Bold, GraphicsUnit.Pixel);
-        using var textBrush = new SolidBrush(Color.White);
-        var sf = new StringFormat
-        {
-            Alignment = StringAlignment.Center,
-            LineAlignment = StringAlignment.Center
-        };
-        g.DrawString("SSH", font, textBrush, new RectangleF(-3, 0, 32, 32), sf);
-
-        var hIcon = bmp.GetHicon();
-        return Icon.FromHandle(hIcon);
+        var assembly = Assembly.GetExecutingAssembly();
+        var stream = assembly.GetManifestResourceStream("SSHwitcher.sshwitcher.ico");
+        return new Icon(stream);
     }
 
     protected override void Dispose(bool disposing)
